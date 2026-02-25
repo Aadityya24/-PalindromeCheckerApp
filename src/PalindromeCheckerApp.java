@@ -6,31 +6,27 @@ public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
 
-        String input = "level";
+        String input = "racecar";
 
-        LinkedList<Character> list = new LinkedList<>();
-
-        for (char c : input.toCharArray()) {
-            list.add(c);
-        }
-
-        boolean isPalindrome = true;
-
-        while (list.size() > 1) {
-
-            char front = list.removeFirst();
-            char back = list.removeLast();
-
-            if (front != back) {
-                isPalindrome = false;
-                break;
-            }
-        }
+        boolean isPalindrome = check(input, 0, input.length() - 1);
 
         if (isPalindrome) {
             System.out.println(input + " is a palindrome.");
         } else {
             System.out.println(input + " is NOT a palindrome.");
         }
+    }
+
+    private static boolean check(String s, int start, int end) {
+
+        if (start >= end) {
+            return true;
+        }
+
+        if (s.charAt(start) != s.charAt(end)) {
+            return false;
+        }
+
+        return check(s, start + 1, end - 1);
     }
 }
