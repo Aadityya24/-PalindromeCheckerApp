@@ -18,13 +18,21 @@ public class PalindromeCheckerApp {
                 break;
             }
         }
-        if (isPalindrome) {
+
+        String reversed = "";
+        for (int i = input.length() - 1; i >= 0; i--) {
+            reversed = reversed + input.charAt(i);
+        }
+
+        System.out.println("Reversed String: " + reversed);
+
+        if (input.equals(reversed) && isPalindrome) {
             System.out.println("The string is a palindrome.");
         } else {
             System.out.println("The string is NOT a palindrome.");
         }
 
-
+        sc.close();
 
     }
 }
