@@ -1,43 +1,59 @@
 import java.util.Deque;
 import java.util.ArrayDeque;
 import java.util.LinkedList;
+import java.util.Stack;
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        String input = "Deed";
+        String input = "noon";
 
-        PalindromeChecker checker = new PalindromeChecker();
+        PalindromeStrategy strategy;
 
-        boolean result = checker.checkPalindrome(input);
+        strategy = new StackStrategy();
+        boolean result1 = strategy.checkPalindrome(input);
+        System.out.println("Stack Strategy: " + input + " -> " + (result1 ? "Palindrome" : "Not Palindrome"));
 
-        if (result) {
-            System.out.println("\"" + input + "\" is a palindrome.");
-        } else {
-            System.out.println("\"" + input + "\" is NOT a palindrome.");
-        }
+        strategy = new DequeStrategy();
+        boolean result2 = strategy.checkPalindrome(input);
+        System.out.println("Deque Strategy: " + input + " -> " + (result2 ? "Palindrome" : "Not Palindrome"));
     }
 }
 
-class PalindromeChecker {
+interface PalindromeStrategy {
+    boolean checkPalindrome(String input);
+}
+
+class StackStrategy implements PalindromeStrategy {
 
     public boolean checkPalindrome(String input) {
 
-        if (input == null) return false;
+        Stack<Character> stack = new Stack<>();
 
-        String normalized = input.replaceAll("\\s+", "").toLowerCase();
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
 
-        char[] chars = normalized.toCharArray();
+        for (char c : input.toCharArray()) {
+            if (stack.pop() != c) return false;
+        }
 
-        int start = 0;
-        int end = chars.length - 1;
+        return true;
+    }
+}
 
-        while (start < end) {
-            if (chars[start] != chars[end]) {
-                return false;
-            }
-            start++;
-            end--;
+class DequeStrategy implements PalindromeStrategy {
+
+    public boolean checkPalindrome(String input) {
+
+        Deque<Character> deque = new ArrayDeque<>();
+
+        for (char c : input.toCharArray()) {
+            deque.add(c);
+        }
+
+        while (deque.size() > 1) {
+            if (deque.removeFirst() != deque.removeLast()) return false;
         }
 
         return true;
