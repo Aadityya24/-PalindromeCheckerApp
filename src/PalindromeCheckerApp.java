@@ -5,28 +5,26 @@ public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
+        String input = "A man a plan a canal Panama";
+        String normalized = input.replaceAll("\\s+", "").toLowerCase();
 
-        String input = "racecar";
+        boolean isPalindrome = true;
+        int start = 0;
+        int end = normalized.length() - 1;
 
-        boolean isPalindrome = check(input, 0, input.length() - 1);
+        while (start < end) {
+            if (normalized.charAt(start) != normalized.charAt(end)) {
+                isPalindrome = false;
+                break;
+            }
+            start++;
+            end--;
+        }
 
         if (isPalindrome) {
-            System.out.println(input + " is a palindrome.");
+            System.out.println("\"" + input + "\" is a palindrome.");
         } else {
-            System.out.println(input + " is NOT a palindrome.");
+            System.out.println("\"" + input + "\" is NOT a palindrome.");
         }
-    }
-
-    private static boolean check(String s, int start, int end) {
-
-        if (start >= end) {
-            return true;
-        }
-
-        if (s.charAt(start) != s.charAt(end)) {
-            return false;
-        }
-
-        return check(s, start + 1, end - 1);
     }
 }
