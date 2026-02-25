@@ -1,21 +1,21 @@
-import java.util.*;
+
+import java.util.Queue;
+import java.util.LinkedList;
+import java.util.Stack;
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
-        String input = "radar";
+        String input = "civic";
 
 
-        char[] chars = input.toCharArray();
-
-
-
-        input = "noon";
+        Queue<Character> queue = new LinkedList<>();
 
 
         Stack<Character> stack = new Stack<>();
 
 
         for (char c : input.toCharArray()) {
+            queue.add(c);
             stack.push(c);
         }
 
@@ -23,11 +23,12 @@ public class PalindromeCheckerApp {
         boolean isPalindrome = true;
 
 
-        for (char c : input.toCharArray()) {
+        while (!queue.isEmpty()) {
 
-            char poppedChar = stack.pop();
+            char queueChar = queue.remove();
+            char stackChar = stack.pop();
 
-            if (c != poppedChar) {
+            if (queueChar != stackChar) {
                 isPalindrome = false;
                 break;
             }
@@ -38,8 +39,6 @@ public class PalindromeCheckerApp {
             System.out.println(input + " is a palindrome.");
         } else {
             System.out.println(input + " is NOT a palindrome.");
-
-
         }
     }
 }
